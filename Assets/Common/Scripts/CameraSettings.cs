@@ -14,7 +14,7 @@ public class CameraSettings : MonoBehaviour
 {
     #region PRIVATE_MEMBERS
     private bool mVuforiaStarted = false;
-    private bool mAutofocusEnabled = true;
+    private bool mAutofocusEnabled = false;
     private bool mFlashTorchEnabled = false;
     private bool focusing = false;
     public static bool DoubleTap
