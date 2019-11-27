@@ -8,92 +8,96 @@ public class PlayerControl : MonoBehaviour
 	public float rotSpeed;
 	public float JumpHeight;
 	bool isGrounded;
-	public float GravityStrength;
 	Rigidbody rb;
+
+	bool moveF = false;
+	bool moveR = false;
+	bool moveL = false;
+	bool jump = false;
 
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 		rb.centerOfMass = Vector3.zero;
 		rb.inertiaTensorRotation = Quaternion.identity;
-		isGrounded = true;
 	}
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
-		{
-			Jump();
-		}
+		
 	}
 
 	private void FixedUpdate()
 	{
-		Vector3 gravityS = new Vector3(0, GravityStrength, 0);
-		Physics.gravity = gravityS;
+		if (isGrounded == true && jump == true)
+		{
+			rb.AddForce(new Vector3(0, JumpHeight, 0));
+			isGrounded = false;
+		}
 
-		float z = Input.GetAxis("Vertical") * speed;
+		float z = Input.GetAxis("Vertical") * (speed / 1000);
 		float y = Input.GetAxis("Horizontal") * rotSpeed;
+		//transform.Translate(0, 0, z);
+		//transform.Rotate(0, y, 0);
 
-		transform.Translate(0, 0, z);
-		transform.Rotate(0, y, 0);
+		if (moveF) { transform.Translate(0, 0, speed / 1000); }
+		else { transform.Translate(Vector3.zero); }
 
-		
+		if (moveR) { transform.Rotate(0, rotSpeed, 0); }
+		else { transform.Rotate(Vector3.zero); }
+
+		if (moveL) { transform.Rotate(0, -rotSpeed, 0); }
+		else { transform.Rotate(Vector3.zero); }
 	}
 
-	private void OnCollisionEnter(Collision collision)
+	public void rotateLeft()
 	{
-		if (collision.gameObject.tag == "Panel" || collision.gameObject.tag == "Ground")
+		//transform.Rotate(0, -1 * rotSpeed,0);
+		moveL = true;
+	}
+
+	public void rotateRight()
+	{
+		//transform.Rotate(0, 1 * rotSpeed, 0);
+		moveR = true;
+	}
+
+	public void moveForward()
+	{
+		//transform.Translate(0, 0, speed/1000);
+		moveF = true;
+	}
+
+	public void nRotateLeft()
+	{ moveL = false; }
+
+	public void nRotateRight()
+	{ moveR = false; }
+
+	public void nMoveForward()
+	{ moveF = false; }
+
+	void OnCollisionStay(Collision collision)
+	{
+		if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Panel")
 		{
 			isGrounded = true;
 		}
-
 	}
 
-	void Jump()
+	private void OnTriggerEnter(Collider other)
 	{
-		rb.AddForce(new Vector3(0, JumpHeight, 0));
-		isGrounded = false;
+		Destroy(other.gameObject);
 	}
 
-	//void OnCollisionEnter()
-	//{
-	//	isGrounded = true;
-	//}
-	//Rigidbody player;
-	//float m_Speed;
+	public void Jump()
+	{
+		jump = true;	
+	}
 
-	//private void Start()
-	//{
-	//	player = GetComponent<Rigidbody>();
-	//	m_Speed = 10.0f;
-	//}
+	public void nJump()
+	{
+		jump = false;
+	}
 
-	//void Update()
-	//{
-	//	if (Input.GetKey(KeyCode.UpArrow))
-	//	{
-	//		player.velocity = transform.forward * m_Speed;
-	//	}
-
-	//	if (Input.GetKey(KeyCode.DownArrow))
-	//	{
-	//		player.velocity = -transform.forward * m_Speed;
-	//	}
-
-	//	if (player.velocity.y == 0 && Input.GetKeyDown(KeyCode.Space))
-	//	{
-	//		player.velocity = transform.up * m_Speed;
-	//	}
-
-	//	if (Input.GetKey(KeyCode.RightArrow))
-	//	{
-	//		transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * m_Speed * 10, Space.World);
-	//	}
-
-	//	if (Input.GetKey(KeyCode.LeftArrow))
-	//	{
-	//		transform.Rotate(new Vector3(0, -1, 0) * Time.deltaTime * m_Speed * 10, Space.World);
-	//	}
-	//}
 }
