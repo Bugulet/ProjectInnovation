@@ -90,19 +90,26 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
             var rendererComponents = mTrackableBehaviour.GetComponentsInChildren<Renderer>(true);
             var colliderComponents = mTrackableBehaviour.GetComponentsInChildren<Collider>(true);
             var canvasComponents = mTrackableBehaviour.GetComponentsInChildren<Canvas>(true);
-
-            // Enable rendering:
-            foreach (var component in rendererComponents)
+			//var rigidComponents = mTrackableBehaviour.GetComponentsInChildren<Rigidbody>(true);
+			// Enable rendering:
+			foreach (var component in rendererComponents)
                 component.enabled = true;
 
-            // Enable colliders:
-            foreach (var component in colliderComponents)
-                component.enabled = true;
+            //// Enable colliders:
+            //foreach (var component in colliderComponents)
+            //    component.enabled = true;
 
             // Enable canvas':
             foreach (var component in canvasComponents)
                 component.enabled = true;
-        }
+
+			//foreach (var component in rigidComponents)
+			//{
+			//	component.isKinematic = false;
+			//	component.detectCollisions = true;
+			//	component.useGravity = true;
+			//}
+		}
     }
 
 
@@ -113,19 +120,27 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
             var rendererComponents = mTrackableBehaviour.GetComponentsInChildren<Renderer>(true);
             var colliderComponents = mTrackableBehaviour.GetComponentsInChildren<Collider>(true);
             var canvasComponents = mTrackableBehaviour.GetComponentsInChildren<Canvas>(true);
-
-            // Disable rendering:
-            foreach (var component in rendererComponents)
+			//var rigidComponents = mTrackableBehaviour.GetComponentsInChildren<Rigidbody>(true);
+			// Disable rendering:
+			foreach (var component in rendererComponents)
                 component.enabled = false;
 
-            // Disable colliders:
-            foreach (var component in colliderComponents)
-                component.enabled = false;
+            //// Disable colliders:
+            //foreach (var component in colliderComponents)
+            //    component.enabled = false;
 
             // Disable canvas':
             foreach (var component in canvasComponents)
                 component.enabled = false;
-        }
+
+			//// Disable rigidbody':
+			//foreach (var component in rigidComponents)
+			//{
+			//	component.isKinematic = true;
+			//	component.detectCollisions = false;
+			//	component.useGravity = false;
+			//}
+		}
     }
 
     #endregion // PROTECTED_METHODS
