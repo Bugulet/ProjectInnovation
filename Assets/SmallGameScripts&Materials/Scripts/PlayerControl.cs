@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour
 	Rigidbody rb;
 
 	bool moveF = false;
+	bool moveB = false;
 	bool moveR = false;
 	bool moveL = false;
 	bool jump = false;
@@ -22,11 +23,6 @@ public class PlayerControl : MonoBehaviour
 		rb.inertiaTensorRotation = Quaternion.identity;
 	}
 
-	private void Update()
-	{
-		
-	}
-
 	private void FixedUpdate()
 	{
 		if (isGrounded == true && jump == true)
@@ -35,12 +31,21 @@ public class PlayerControl : MonoBehaviour
 			isGrounded = false;
 		}
 
+		if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+		{
+			rb.AddForce(new Vector3(0, JumpHeight, 0));
+			isGrounded = false;
+		}
+
 		float z = Input.GetAxis("Vertical") * (speed / 1000);
 		float y = Input.GetAxis("Horizontal") * rotSpeed;
-		//transform.Translate(0, 0, z);
-		//transform.Rotate(0, y, 0);
+		transform.Translate(0, 0, z);
+		transform.Rotate(0, y, 0);
 
 		if (moveF) { transform.Translate(0, 0, speed / 1000); }
+		else { transform.Translate(Vector3.zero); }
+
+		if (moveB) { transform.Translate(0, 0, -speed / 1000); }
 		else { transform.Translate(Vector3.zero); }
 
 		if (moveR) { transform.Rotate(0, rotSpeed, 0); }
@@ -50,32 +55,16 @@ public class PlayerControl : MonoBehaviour
 		else { transform.Rotate(Vector3.zero); }
 	}
 
-	public void rotateLeft()
-	{
-		//transform.Rotate(0, -1 * rotSpeed,0);
-		moveL = true;
-	}
-
-	public void rotateRight()
-	{
-		//transform.Rotate(0, 1 * rotSpeed, 0);
-		moveR = true;
-	}
-
-	public void moveForward()
-	{
-		//transform.Translate(0, 0, speed/1000);
-		moveF = true;
-	}
-
-	public void nRotateLeft()
-	{ moveL = false; }
-
-	public void nRotateRight()
-	{ moveR = false; }
-
-	public void nMoveForward()
-	{ moveF = false; }
+	public void rotateLeft()	{ moveL = true; }
+	public void nRotateLeft()	{ moveL = false; }
+	public void rotateRight()	{ moveR = true; }
+	public void nRotateRight()	{ moveR = false; }
+	public void moveForward()	{ moveF = true; }
+	public void nMoveForward()	{ moveF = false; }
+	public void moveBackward()	{ moveB = true; }	
+	public void nMoveBackward()	{ moveB = false; }
+	public void Jump()			{ jump = true; }
+	public void nJump()			{ jump = false; }
 
 	void OnCollisionStay(Collision collision)
 	{
@@ -89,15 +78,4 @@ public class PlayerControl : MonoBehaviour
 	{
 		Destroy(other.gameObject);
 	}
-
-	public void Jump()
-	{
-		jump = true;	
-	}
-
-	public void nJump()
-	{
-		jump = false;
-	}
-
 }
