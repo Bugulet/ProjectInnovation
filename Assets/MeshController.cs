@@ -6,7 +6,7 @@ public class MeshController : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject textWire, textFlat, textTex, cubeWire, cubeFlat, cubeTex;
+    GameObject textHolder, explanationHolder;
 
     int currentCube=0;
 
@@ -14,13 +14,17 @@ public class MeshController : MonoBehaviour
     public void increaseCube()
     {
         currentCube++;
-        if (currentCube > 2) currentCube = 2;
+        if (currentCube >=transform.childCount) currentCube =transform.childCount-1;
+
+        ChangeCube();
     }
 
     public void decreaseCube()
     {
         currentCube--;
         if (currentCube <0) currentCube = 0;
+
+        ChangeCube();
     }
 
     // Start is called before the first frame update
@@ -29,49 +33,25 @@ public class MeshController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ChangeCube()
     {
-        switch (currentCube)
+        for (int i = 0; i < textHolder.transform.childCount; i++)
         {
-            case 0:
-                textWire.SetActive(true);
-                cubeWire.SetActive(true);
+            if (currentCube == i)
+            {
+                textHolder.transform.GetChild(i).gameObject.SetActive(true);
+                explanationHolder.transform.GetChild(i).gameObject.SetActive(true);
 
-                textFlat.SetActive(false);
-                cubeFlat.SetActive(false);
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
+            else
+            {
+                textHolder.transform.GetChild(i).gameObject.SetActive(false);
+                explanationHolder.transform.GetChild(i).gameObject.SetActive(false);
 
-                textTex.SetActive(false);
-                cubeTex.SetActive(false);
-
-                break;
-
-            case 1:
-                textWire.SetActive(false);
-                cubeWire.SetActive(false);
-
-                textFlat.SetActive(true);
-                cubeFlat.SetActive(true);
-
-                textTex.SetActive(false);
-                cubeTex.SetActive(false);
-
-                break;
-
-            case 2:
-                textWire.SetActive(false);
-                cubeWire.SetActive(false);
-                                   
-                textFlat.SetActive(false);
-                cubeFlat.SetActive(false);
-
-                textTex.SetActive(true);
-                cubeTex.SetActive(true);
-
-                break;
-
-            default:
-                break;
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
+
 }

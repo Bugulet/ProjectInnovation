@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 public class SceneHandler : MonoBehaviour
 {
 
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void StartPoster()
     {
         SceneManager.LoadScene(1);
