@@ -6,7 +6,23 @@ TagManager:
   tags:
   - Panel
   - Ground
-  - Coin
+  - EngineerToken
+  - DesignerToken
+  - ArtistToken
+  - Lava
+  - Coin100
+  - Coin10
+  - Princess
+  - CheckPoint01
+  - CheckPoint02
+  - CheckPoint03
+  - CheckPoint04
+  - CheckPoint05
+  - CheckPoint06
+  - CheckPoint07
+  - CheckPoint08
+  - CheckPoint09
+  - CheckPointEnd
   layers:
   - Default
   - TransparentFX
