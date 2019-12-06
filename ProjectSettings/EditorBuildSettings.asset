@@ -18,6 +18,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Building Scene.unity
     guid: 01ba975cf9ff2f44facafc73ccb256de
   - enabled: 1
-    path: Assets/Scenes/Concepts Scene.unity
+    path: Assets/Scenes/Concept Selection.unity
+    guid: 497e2aed3cde5cb489845e15acbb629e
+  - enabled: 1
+    path: Assets/Scenes/Artist Concept.unity
     guid: ba45e2e293810784cb4f6678e93912ab
+  - enabled: 1
+    path: Assets/Scenes/Engineer Concept.unity
+    guid: c646e07f74967674a8dc78f0d63521b9
+  - enabled: 1
+    path: Assets/Scenes/Designer Concept.unity
+    guid: 3c720b1c6909ee24895493fc4f02ca12
   m_configObjects: {}

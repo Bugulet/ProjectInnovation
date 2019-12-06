@@ -30,4 +30,19 @@ public class SceneHandler : MonoBehaviour
     {
         SceneManager.LoadScene(4);
     }
+
+    public void StartArtist()
+    {
+        SceneManager.LoadScene(5);
+    }
+
+    public void StartEngineer()
+    {
+        SceneManager.LoadScene(6);
+    }
+
+    public void StartDesigner()
+    {
+        SceneManager.LoadScene(7);
+    }
 }

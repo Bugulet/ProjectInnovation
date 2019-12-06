@@ -6,12 +6,18 @@ using UnityEngine;
 
 public class EngineerScripting : MonoBehaviour
 {
-
-    public GameObject[] blocks;
+    
+    public GameObject blockHolder;
     public GameObject player;
+
+    private Vector3 playerPos;
+    private Quaternion playerRot;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerRot = player.transform.rotation;
+        playerPos = player.transform.position;
     }
 
     private int level = 0;
@@ -28,11 +34,17 @@ public class EngineerScripting : MonoBehaviour
             FirstLevel();
         }
 
+        if (level == 2)
+        {
+            SecondLevel();
+        }
+
         timer += Time.deltaTime;
     }
 
     public void SetLevel(int lev)
     {
+        player.transform.SetPositionAndRotation(playerPos, playerRot);
         level = lev;
         timer = 0;
         insNum = 0;
@@ -41,15 +53,27 @@ public class EngineerScripting : MonoBehaviour
     public void FirstLevel()
     {
         // print(timer);
-        if (timer >= 0.5f && insNum < 2)
+        if (timer >= 0.5f && insNum < blockHolder.transform.childCount)
         {
             timer = 0;
 
-            Execute(blocks[insNum]);
+            Execute(blockHolder.transform.GetChild(insNum).gameObject);
             print(insNum);
             insNum++;
         }
+    }
 
+    public void SecondLevel()
+    {
+        // print(timer);
+        if (timer >= 0.5f && insNum < blockHolder.transform.childCount)
+        {
+            timer = 0;
+
+            Execute(blockHolder.transform.GetChild(insNum).gameObject);
+            print(insNum);
+            insNum++;
+        }
     }
 
     private void Execute(GameObject block)
